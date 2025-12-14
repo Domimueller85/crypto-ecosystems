@@ -1,5 +1,41 @@
 const std = @import("std");
 
+/// Validates if a filename starts with a valid ISO8601-like timestamp.
+/// Expected format: YYYY-MM-DDTHHMMSS (17 characters minimum)
+///
+/// This function checks:
+/// - Correct format with digits and separators in the right positions
+/// - Valid date ranges (month 1-12, day 1-31, hour 0-23, etc.)
+/// - Leap year calculations for February
+/// - Days per month validation
+///
+/// Returns:
+///   true if the filename starts with a valid timestamp, false otherwise
+///
+/// Example:
+///   ```
+///   hasValidTimestamp("2024-01-16T020000_migration.txt") // true
+///   hasValidTimestamp("2024-13-01T000000_invalid.txt")   // false (invalid month)
+///   ```
+///
+/// DEUTSCH:
+/// Überprüft, ob ein Dateiname mit einem gültigen ISO8601-ähnlichen Zeitstempel beginnt.
+/// Erwartetes Format: YYYY-MM-DDTHHMMSS (mindestens 17 Zeichen)
+///
+/// Diese Funktion prüft:
+/// - Korrektes Format mit Ziffern und Trennzeichen an den richtigen Positionen
+/// - Gültige Datumsbereiche (Monat 1-12, Tag 1-31, Stunde 0-23, usw.)
+/// - Schaltjahr-Berechnungen für Februar
+/// - Tage-pro-Monat-Validierung
+///
+/// Rückgabewert:
+///   true wenn der Dateiname mit einem gültigen Zeitstempel beginnt, sonst false
+///
+/// Beispiel:
+///   ```
+///   hasValidTimestamp("2024-01-16T020000_migration.txt") // true
+///   hasValidTimestamp("2024-13-01T000000_invalid.txt")   // false (ungültiger Monat)
+///   ```
 pub fn hasValidTimestamp(filename: []const u8) bool {
     // Check minimum length (YYYY-MM-DDTHHMMSS = 17 characters)
     if (filename.len < 17) return false;
@@ -43,6 +79,16 @@ pub fn hasValidTimestamp(filename: []const u8) bool {
     return true;
 }
 
+/// Determines if a year is a leap year according to the Gregorian calendar.
+/// A year is a leap year if:
+/// - It's divisible by 4, but not by 100, OR
+/// - It's divisible by 400
+///
+/// DEUTSCH:
+/// Bestimmt, ob ein Jahr ein Schaltjahr nach dem Gregorianischen Kalender ist.
+/// Ein Jahr ist ein Schaltjahr, wenn:
+/// - Es durch 4 teilbar ist, aber nicht durch 100, ODER
+/// - Es durch 400 teilbar ist
 fn isLeapYear(year: u16) bool {
     return (year % 4 == 0 and year % 100 != 0) or (year % 400 == 0);
 }

@@ -1,5 +1,57 @@
 const std = @import("std");
 
+/// Splits a command-line string into tokens, similar to shell parsing.
+/// Handles quoted strings (both single and double quotes) and escape sequences.
+///
+/// This function tokenizes input similar to how a shell would parse command-line arguments:
+/// - Whitespace separates tokens
+/// - Quoted strings (with " or ') preserve spaces
+/// - Backslash (\) escapes the next character
+/// - Quotes within quotes can be escaped
+///
+/// Parameters:
+///   - line: The input string to tokenize
+///   - tokens: Output array to store parsed tokens (must be pre-allocated)
+///
+/// Returns:
+///   The number of tokens parsed (may be less than tokens.len)
+///
+/// Errors:
+///   - error.UnterminatedQuote: If a quoted string is not properly closed
+///
+/// Example:
+///   ```
+///   var tokens: [3]?[]const u8 = undefined;
+///   const count = try split("hello \"world test\"", &tokens);
+///   // tokens[0] = "hello", tokens[1] = "world test", count = 2
+///   ```
+///
+/// DEUTSCH:
+/// Teilt einen Kommandozeilen-String in Token auf, ähnlich wie Shell-Parsing.
+/// Behandelt Strings in Anführungszeichen (einfach und doppelt) und Escape-Sequenzen.
+///
+/// Diese Funktion tokenisiert Eingaben ähnlich wie eine Shell Kommandozeilen-Argumente parsen würde:
+/// - Leerzeichen trennen Token
+/// - Strings in Anführungszeichen (mit " oder ') bewahren Leerzeichen
+/// - Backslash (\) maskiert das nächste Zeichen
+/// - Anführungszeichen innerhalb von Anführungszeichen können maskiert werden
+///
+/// Parameter:
+///   - line: Der zu tokenisierende Eingabe-String
+///   - tokens: Ausgabe-Array zum Speichern der geparsten Token (muss vorab allokiert sein)
+///
+/// Rückgabewert:
+///   Die Anzahl der geparsten Token (kann kleiner als tokens.len sein)
+///
+/// Fehler:
+///   - error.UnterminatedQuote: Wenn ein String in Anführungszeichen nicht ordentlich geschlossen wird
+///
+/// Beispiel:
+///   ```
+///   var tokens: [3]?[]const u8 = undefined;
+///   const count = try split("hello \"world test\"", &tokens);
+///   // tokens[0] = "hello", tokens[1] = "world test", count = 2
+///   ```
 pub fn split(line: []const u8, tokens: []?[]const u8) !usize {
     var token_count: usize = 0;
     var i: usize = 0;
@@ -45,6 +97,12 @@ pub fn split(line: []const u8, tokens: []?[]const u8) !usize {
     return token_count;
 }
 
+/// Removes escape sequences from a string by processing backslash-escaped characters.
+/// If no escape sequences are found, returns the original string unchanged.
+///
+/// DEUTSCH:
+/// Entfernt Escape-Sequenzen aus einem String durch Verarbeitung von Backslash-maskierten Zeichen.
+/// Wenn keine Escape-Sequenzen gefunden werden, gibt den Original-String unverändert zurück.
 fn stripEscapes(input: []const u8) []const u8 {
     var has_escapes = false;
     for (input, 0..) |c, idx| {
