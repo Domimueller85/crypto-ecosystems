@@ -1,5 +1,8 @@
 # Crypto Ecosystems - Deutsche Anleitung
 
+> Part of the [Electric Capital Crypto Ecosystems](https://github.com/electric-capital/crypto-ecosystems) project.
+> Licensed under MIT License. Copyright (c) 2019 Electric Capital.
+
 <h3 align="center">
 <img width="300" alt="crypto_ecosystems" src="https://github.com/user-attachments/assets/3e0c7ee0-67c3-44a3-a575-6a1cb1824788" />
 </h3>

@@ -13,10 +13,12 @@ const std = @import("std");
 ///   true if the filename starts with a valid timestamp, false otherwise
 ///
 /// Example:
-///   ```
+///   ```zig
 ///   hasValidTimestamp("2024-01-16T020000_migration.txt") // true
 ///   hasValidTimestamp("2024-13-01T000000_invalid.txt")   // false (invalid month)
 ///   ```
+///
+/// ---
 ///
 /// DEUTSCH:
 /// Überprüft, ob ein Dateiname mit einem gültigen ISO8601-ähnlichen Zeitstempel beginnt.
@@ -32,7 +34,7 @@ const std = @import("std");
 ///   true wenn der Dateiname mit einem gültigen Zeitstempel beginnt, sonst false
 ///
 /// Beispiel:
-///   ```
+///   ```zig
 ///   hasValidTimestamp("2024-01-16T020000_migration.txt") // true
 ///   hasValidTimestamp("2024-13-01T000000_invalid.txt")   // false (ungültiger Monat)
 ///   ```
@@ -80,12 +82,16 @@ pub fn hasValidTimestamp(filename: []const u8) bool {
 }
 
 /// Determines if a year is a leap year according to the Gregorian calendar.
+///
 /// A year is a leap year if:
 /// - It's divisible by 4, but not by 100, OR
 /// - It's divisible by 400
 ///
+/// ---
+///
 /// DEUTSCH:
 /// Bestimmt, ob ein Jahr ein Schaltjahr nach dem Gregorianischen Kalender ist.
+///
 /// Ein Jahr ist ein Schaltjahr, wenn:
 /// - Es durch 4 teilbar ist, aber nicht durch 100, ODER
 /// - Es durch 400 teilbar ist

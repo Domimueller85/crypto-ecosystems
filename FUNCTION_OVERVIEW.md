@@ -1,5 +1,8 @@
 # Function Overview / Funktionsübersicht
 
+> Part of the [Electric Capital Crypto Ecosystems](https://github.com/electric-capital/crypto-ecosystems) project.
+> Licensed under MIT License. Copyright (c) 2019 Electric Capital.
+
 This document provides an overview of all major functions in the crypto-ecosystems codebase.
 
 Dieses Dokument bietet eine Übersicht über alle wichtigen Funktionen in der crypto-ecosystems Codebasis.

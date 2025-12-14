@@ -87,6 +87,8 @@ pub const Taxonomy = struct {
     /// Initializes a new Taxonomy instance with empty data structures.
     /// All hash maps and lists are initialized but empty.
     ///
+    /// ---
+    ///
     /// DEUTSCH:
     /// Initialisiert eine neue Taxonomy-Instanz mit leeren Datenstrukturen.
     /// Alle Hash-Maps und Listen werden initialisiert, sind aber leer.
@@ -115,6 +117,8 @@ pub const Taxonomy = struct {
 
     /// Cleans up and frees all memory used by the Taxonomy.
     /// Must be called when done using the Taxonomy to prevent memory leaks.
+    ///
+    /// ---
     ///
     /// DEUTSCH:
     /// Räumt auf und gibt allen vom Taxonomy verwendeten Speicher frei.
@@ -168,6 +172,8 @@ pub const Taxonomy = struct {
     ///   - max_date_: Optional maximum date filter (format: YYYY-MM-DD...)
     ///
     /// Returns error.ValidationFailed if any errors occur during loading.
+    ///
+    /// ---
     ///
     /// DEUTSCH:
     /// Lädt alle Migrationsdateien aus dem angegebenen Verzeichnis in die Taxonomie.
@@ -238,6 +244,8 @@ pub const Taxonomy = struct {
 
     /// Loads and processes a single migration file.
     /// Reads the file line by line and executes migration commands (ecoadd, repadd, ecocon, etc.).
+    ///
+    /// ---
     ///
     /// DEUTSCH:
     /// Lädt und verarbeitet eine einzelne Migrationsdatei.
@@ -409,6 +417,8 @@ pub const Taxonomy = struct {
     ///   - output_file: Path where the JSON Lines file will be written
     ///   - ecosystem: Optional - if specified, only exports data for this ecosystem
     ///
+    /// ---
+    ///
     /// DEUTSCH:
     /// Exportiert die Taxonomie-Daten in eine JSON Lines-Datei (ein JSON-Objekt pro Zeile).
     /// Jede Zeile enthält eine Ökosystem-Repo-Beziehung mit Branch-Pfad und Tags.
@@ -464,6 +474,8 @@ pub const Taxonomy = struct {
     /// Retrieves an ecosystem by name, including all its repos and sub-ecosystems.
     /// Returns null if the ecosystem doesn't exist.
     /// The caller must call deinit() on the returned Ecosystem.
+    ///
+    /// ---
     ///
     /// DEUTSCH:
     /// Ruft ein Ökosystem nach Namen ab, einschließlich aller Repos und Unter-Ökosysteme.
@@ -668,6 +680,8 @@ pub const Taxonomy = struct {
 
 /// Returns whether a line is a comment (starts with # after optional whitespace).
 ///
+/// ---
+///
 /// DEUTSCH:
 /// Gibt zurück, ob eine Zeile ein Kommentar ist (beginnt mit # nach optionalen Leerzeichen).
 fn isComment(line: []const u8) bool {
@@ -688,13 +702,17 @@ fn isComment(line: []const u8) bool {
 /// DSL Command: ecoadd <name>
 /// Adds a new ecosystem to the taxonomy.
 ///
-/// Example: ecoadd Bitcoin
+/// Example:
+///   ecoadd Bitcoin
+///
+/// ---
 ///
 /// DEUTSCH:
 /// DSL-Befehl: ecoadd <name>
 /// Fügt ein neues Ökosystem zur Taxonomie hinzu.
 ///
-/// Beispiel: ecoadd Bitcoin
+/// Beispiel:
+///   ecoadd Bitcoin
 fn ecoAdd(sub_line: []const u8, db: *Taxonomy) !void {
     var tokens: [10]?[]const u8 = undefined;
     const token_count = try shlex.split(sub_line, &tokens);
@@ -711,14 +729,18 @@ fn ecoAdd(sub_line: []const u8, db: *Taxonomy) !void {
 /// Connects an ecosystem to another ecosystem as a sub-ecosystem.
 /// The child becomes a sub-ecosystem of the parent.
 ///
-/// Example: ecocon Bitcoin Lightning
+/// Example:
+///   ecocon Bitcoin Lightning
+///
+/// ---
 ///
 /// DEUTSCH:
 /// DSL-Befehl: ecocon <parent> <child>
 /// Verbindet ein Ökosystem mit einem anderen Ökosystem als Unter-Ökosystem.
 /// Das Kind wird ein Unter-Ökosystem des Elternteils.
 ///
-/// Beispiel: ecocon Bitcoin Lightning
+/// Beispiel:
+///   ecocon Bitcoin Lightning
 fn ecoCon(sub_line: []const u8, db: *Taxonomy) !void {
     var tokens: [10]?[]const u8 = undefined;
     const token_count = try shlex.split(sub_line, &tokens);
@@ -736,13 +758,17 @@ fn ecoCon(sub_line: []const u8, db: *Taxonomy) !void {
 /// DSL Command: ecodis <parent> <child>
 /// Disconnects an ecosystem from another one (removes sub-ecosystem relationship).
 ///
-/// Example: ecodis Bitcoin Lightning
+/// Example:
+///   ecodis Bitcoin Lightning
+///
+/// ---
 ///
 /// DEUTSCH:
 /// DSL-Befehl: ecodis <parent> <child>
 /// Trennt ein Ökosystem von einem anderen (entfernt Unter-Ökosystem-Beziehung).
 ///
-/// Beispiel: ecodis Bitcoin Lightning
+/// Beispiel:
+///   ecodis Bitcoin Lightning
 fn ecoDis(sub_line: []const u8, db: *Taxonomy) !void {
     var tokens: [2]?[]const u8 = undefined;
     const token_count = try shlex.split(sub_line, &tokens);
@@ -761,14 +787,18 @@ fn ecoDis(sub_line: []const u8, db: *Taxonomy) !void {
 /// Removes an ecosystem from the taxonomy completely.
 /// This also removes all parent-child relationships.
 ///
-/// Example: ecorem OldEcosystem
+/// Example:
+///   ecorem OldEcosystem
+///
+/// ---
 ///
 /// DEUTSCH:
 /// DSL-Befehl: ecorem <name>
 /// Entfernt ein Ökosystem vollständig aus der Taxonomie.
 /// Dies entfernt auch alle Eltern-Kind-Beziehungen.
 ///
-/// Beispiel: ecorem OldEcosystem
+/// Beispiel:
+///   ecorem OldEcosystem
 fn ecoRem(sub_line: []const u8, db: *Taxonomy) !void {
     var tokens: [1]?[]const u8 = undefined;
     const token_count = try shlex.split(sub_line, &tokens);
@@ -786,14 +816,18 @@ fn ecoRem(sub_line: []const u8, db: *Taxonomy) !void {
 /// Adds a repository to an ecosystem with optional tags.
 /// Tags must start with # (e.g., #protocol, #sdk, #developer-tool).
 ///
-/// Example: repadd Bitcoin https://github.com/bitcoin/bitcoin #protocol
+/// Example:
+///   repadd Bitcoin https://github.com/bitcoin/bitcoin #protocol
+///
+/// ---
 ///
 /// DEUTSCH:
 /// DSL-Befehl: repadd <ecosystem> <repo_url> [#tag1] [#tag2] ...
 /// Fügt ein Repository zu einem Ökosystem mit optionalen Tags hinzu.
 /// Tags müssen mit # beginnen (z.B. #protocol, #sdk, #developer-tool).
 ///
-/// Beispiel: repadd Bitcoin https://github.com/bitcoin/bitcoin #protocol
+/// Beispiel:
+///   repadd Bitcoin https://github.com/bitcoin/bitcoin #protocol
 fn repAdd(remainder: []const u8, db: *Taxonomy) !void {
     var tokens: [10]?[]const u8 = undefined;
     const token_count = try shlex.split(remainder, &tokens);
@@ -813,14 +847,18 @@ fn repAdd(remainder: []const u8, db: *Taxonomy) !void {
 /// Renames/moves a repository URL (useful when repos change location on GitHub).
 /// Updates all references to the old URL to point to the new URL.
 ///
-/// Example: repmov https://github.com/old/repo https://github.com/new/repo
+/// Example:
+///   repmov https://github.com/old/repo https://github.com/new/repo
+///
+/// ---
 ///
 /// DEUTSCH:
 /// DSL-Befehl: repmov <old_url> <new_url>
 /// Benennt/verschiebt eine Repository-URL um (nützlich wenn Repos auf GitHub umziehen).
 /// Aktualisiert alle Verweise auf die alte URL zur neuen URL.
 ///
-/// Beispiel: repmov https://github.com/old/repo https://github.com/new/repo
+/// Beispiel:
+///   repmov https://github.com/old/repo https://github.com/new/repo
 fn repMov(remainder: []const u8, db: *Taxonomy) !void {
     var tokens: [2]?[]const u8 = undefined;
     const token_count = try shlex.split(remainder, &tokens);
@@ -839,14 +877,18 @@ fn repMov(remainder: []const u8, db: *Taxonomy) !void {
 /// Renames an ecosystem (e.g., when an ecosystem rebrands).
 /// All relationships and repos are preserved under the new name.
 ///
-/// Example: ecomov Elrond MultiversX
+/// Example:
+///   ecomov Elrond MultiversX
+///
+/// ---
 ///
 /// DEUTSCH:
 /// DSL-Befehl: ecomov <old_name> <new_name>
 /// Benennt ein Ökosystem um (z.B. bei einem Rebranding).
 /// Alle Beziehungen und Repos werden unter dem neuen Namen beibehalten.
 ///
-/// Beispiel: ecomov Elrond MultiversX
+/// Beispiel:
+///   ecomov Elrond MultiversX
 fn ecoMov(remainder: []const u8, db: *Taxonomy) !void {
     var tokens: [2]?[]const u8 = undefined;
     const token_count = try shlex.split(remainder, &tokens);
@@ -865,14 +907,18 @@ fn ecoMov(remainder: []const u8, db: *Taxonomy) !void {
 /// Removes a repository from a specific ecosystem.
 /// The repo might still exist in other ecosystems.
 ///
-/// Example: reprem Bitcoin https://github.com/some/repo
+/// Example:
+///   reprem Bitcoin https://github.com/some/repo
+///
+/// ---
 ///
 /// DEUTSCH:
 /// DSL-Befehl: reprem <ecosystem> <repo_url>
 /// Entfernt ein Repository aus einem bestimmten Ökosystem.
 /// Das Repo kann noch in anderen Ökosystemen existieren.
 ///
-/// Beispiel: reprem Bitcoin https://github.com/some/repo
+/// Beispiel:
+///   reprem Bitcoin https://github.com/some/repo
 fn repRem(remainder: []const u8, db: *Taxonomy) !void {
     var tokens: [2]?[]const u8 = undefined;
     const token_count = try shlex.split(remainder, &tokens);

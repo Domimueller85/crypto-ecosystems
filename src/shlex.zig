@@ -20,11 +20,13 @@ const std = @import("std");
 ///   - error.UnterminatedQuote: If a quoted string is not properly closed
 ///
 /// Example:
-///   ```
+///   ```zig
 ///   var tokens: [3]?[]const u8 = undefined;
 ///   const count = try split("hello \"world test\"", &tokens);
 ///   // tokens[0] = "hello", tokens[1] = "world test", count = 2
 ///   ```
+///
+/// ---
 ///
 /// DEUTSCH:
 /// Teilt einen Kommandozeilen-String in Token auf, ähnlich wie Shell-Parsing.
@@ -47,7 +49,7 @@ const std = @import("std");
 ///   - error.UnterminatedQuote: Wenn ein String in Anführungszeichen nicht ordentlich geschlossen wird
 ///
 /// Beispiel:
-///   ```
+///   ```zig
 ///   var tokens: [3]?[]const u8 = undefined;
 ///   const count = try split("hello \"world test\"", &tokens);
 ///   // tokens[0] = "hello", tokens[1] = "world test", count = 2
@@ -99,6 +101,8 @@ pub fn split(line: []const u8, tokens: []?[]const u8) !usize {
 
 /// Removes escape sequences from a string by processing backslash-escaped characters.
 /// If no escape sequences are found, returns the original string unchanged.
+///
+/// ---
 ///
 /// DEUTSCH:
 /// Entfernt Escape-Sequenzen aus einem String durch Verarbeitung von Backslash-maskierten Zeichen.

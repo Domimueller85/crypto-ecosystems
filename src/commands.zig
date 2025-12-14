@@ -183,6 +183,8 @@ fn executeCommand(a: std.mem.Allocator, cmd: CommandArgs) !void {
 /// Main entry point for the command-line interface.
 /// Parses command-line arguments and executes the requested command.
 ///
+/// ---
+///
 /// DEUTSCH:
 /// Haupteinstiegspunkt für die Kommandozeilen-Schnittstelle.
 /// Parst Kommandozeilen-Argumente und führt den angeforderten Befehl aus.
@@ -217,6 +219,8 @@ pub fn cmdMain(allocator: std.mem.Allocator) !void {
 /// Validates all migrations and prints statistics about the taxonomy.
 /// Shows the number of migrations, ecosystems, repos, and tags.
 ///
+/// ---
+///
 /// DEUTSCH:
 /// Validiert alle Migrationen und gibt Statistiken über die Taxonomie aus.
 /// Zeigt die Anzahl der Migrationen, Ökosysteme, Repos und Tags an.
@@ -248,6 +252,8 @@ fn defaultMigrationsPath(a: std.mem.Allocator) ![]const u8 {
 /// Exports the taxonomy to a JSON Lines file.
 /// Each line contains one ecosystem-repo relationship with metadata.
 /// Optionally filters to a single ecosystem or a maximum date.
+///
+/// ---
 ///
 /// DEUTSCH:
 /// Exportiert die Taxonomie in eine JSON Lines-Datei.
