@@ -180,6 +180,14 @@ fn executeCommand(a: std.mem.Allocator, cmd: CommandArgs) !void {
     }
 }
 
+/// Main entry point for the command-line interface.
+/// Parses command-line arguments and executes the requested command.
+///
+/// ---
+///
+/// DEUTSCH:
+/// Haupteinstiegspunkt für die Kommandozeilen-Schnittstelle.
+/// Parst Kommandozeilen-Argumente und führt den angeforderten Befehl aus.
 pub fn cmdMain(allocator: std.mem.Allocator) !void {
     const args = try std.process.argsAlloc(allocator);
     defer std.process.argsFree(allocator, args);
@@ -208,6 +216,14 @@ pub fn cmdMain(allocator: std.mem.Allocator) !void {
     try executeCommand(allocator, cmd);
 }
 
+/// Validates all migrations and prints statistics about the taxonomy.
+/// Shows the number of migrations, ecosystems, repos, and tags.
+///
+/// ---
+///
+/// DEUTSCH:
+/// Validiert alle Migrationen und gibt Statistiken über die Taxonomie aus.
+/// Zeigt die Anzahl der Migrationen, Ökosysteme, Repos und Tags an.
 pub fn cmdValidate(gpa: std.mem.Allocator, options: RunOptions) !void {
     const default_dir = try defaultMigrationsPath(gpa);
     defer gpa.free(default_dir);
@@ -233,6 +249,16 @@ fn defaultMigrationsPath(a: std.mem.Allocator) ![]const u8 {
     return try std.fs.cwd().realpathAlloc(a, "migrations");
 }
 
+/// Exports the taxonomy to a JSON Lines file.
+/// Each line contains one ecosystem-repo relationship with metadata.
+/// Optionally filters to a single ecosystem or a maximum date.
+///
+/// ---
+///
+/// DEUTSCH:
+/// Exportiert die Taxonomie in eine JSON Lines-Datei.
+/// Jede Zeile enthält eine Ökosystem-Repo-Beziehung mit Metadaten.
+/// Optional gefiltert auf ein einzelnes Ökosystem oder ein maximales Datum.
 pub fn cmdExport(gpa: std.mem.Allocator, options: RunOptions) !void {
     const default_dir = try defaultMigrationsPath(gpa);
     defer gpa.free(default_dir);
